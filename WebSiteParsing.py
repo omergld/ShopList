@@ -1,10 +1,10 @@
-from selenium import webdriver
+from selenium import *
+from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.common.keys import Keys
 
 
-driver = webdriver.Firefox()
-class Search(object):
-    url=""
+driver = webdriver.WebDriver("./chromedriver")
+class Search:
     def __init__(self, url):
       self.url=url
 
