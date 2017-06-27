@@ -1,4 +1,5 @@
-from WebSiteParsing import Search
-s=Search("https://www.ybitan.co.il/frontend/search/")
-s.searchProduct("chicken")
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from getXml import getmarket
 
+getmarket.getxml()
