@@ -10,6 +10,9 @@ driver = webdriver.WebDriver( "./chromedriver")
 class automation:
 
 
+    def __init__(self):
+        pass
+
     def initBrowser(self):
 
         driver.get("https://www.rami-levy.co.il/")
@@ -24,7 +27,6 @@ class automation:
             name=item.find_element_by_class_name("prod_title prodName").get_attribute("innerHTML");
             price=item.find_element_by_class_name("prodPrice").get_attribute("innerHTML");
             products[name]=price
-
         return json.dumps(products)
 
 
