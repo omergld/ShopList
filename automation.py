@@ -21,8 +21,8 @@ class automation:
         driver.find_element_by_class_name("strSearch").send_keys(name)
         driver.find_element_by_class_name("strSearch").submit()
         for item in driver.find_element_by_class_name("product_item"):
-            name=driver.find_element_by_class_name("prod_title prodName").get_attribute("innerHTML");
-            price=driver.find_element_by_class_name("prodPrice").get_attribute("innerHTML");
+            name=item.find_element_by_class_name("prod_title prodName").get_attribute("innerHTML");
+            price=item.find_element_by_class_name("prodPrice").get_attribute("innerHTML");
             products[name]=price
 
         return json.dumps(products)
