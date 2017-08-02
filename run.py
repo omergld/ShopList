@@ -1,4 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-from getXml import getmarket
-getmarket.getxml()
+import json;
+d={}
+d["a"]=11
+d["b"]=22
+d["omer"]=662
+print json.dumps(d)

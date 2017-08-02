@@ -3,25 +3,32 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.common.keys import Keys
 from time import sleep
-import gzip
+import json
 
 driver = webdriver.WebDriver( "./chromedriver")
 
-class getmarket(object):
+class automation:
 
-    @staticmethod
-    def getxml():
-        driver.get("http://prices.shufersal.co.il/")
-        driver.find_element_by_id("ddlCategory").click()
-        driver.find_element_by_css_selector("#ddlCategory > option:nth-child(3)").click()
-        driver.find_element_by_css_selector("#gridContainer > table > tbody > tr:nth-child(1) > td:nth-child(1) > a").click()
-        sleep(30)
-        infile="/Users/omer/Downloads/"+ driver.find_element_by_css_selector("#gridContainer > table > tbody > tr:nth-child(1) > td:nth-child(7)").get_attribute("innerHTML")+".gz"
-        outfile="/Users/omer/Downloads/shop.xml"
-        driver.quit()
-        inF = gzip.open(infile, 'rb')
-        outF = open(outfile, 'wb')
-        outF.write(inF.read())
-        inF.close()
-        outF.close()
+
+    def initBrowser(self):
+
+        driver.get("https://www.rami-levy.co.il/")
+        driver.set_window_size(1500,2000)
+        driver.find_element_by_class_name("shoping_start_but wcag-underline").click()
+
+    def getProductByName(name):
+        products={}
+        driver.find_element_by_class_name("strSearch").send_keys(name)
+        driver.find_element_by_class_name("strSearch").submit()
+        for item in driver.find_element_by_class_name("product_item"):
+            name=driver.find_element_by_class_name("prod_title prodName").get_attribute("innerHTML");
+            price=driver.find_element_by_class_name("prodPrice").get_attribute("innerHTML");
+            products[name]=price
+
+        return json.dumps(products)
+
+
+
+
+
 
