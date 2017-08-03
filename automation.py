@@ -10,40 +10,41 @@ import json
 
 from selenium.webdriver.support.wait import WebDriverWait
 
-driver = "";
-
+driver = webdriver.WebDriver("./chromedriver")
 
 class scarpping(object):
 
 
     def waitforelement(self,findwhat,value):
-        wait = WebDriverWait(driver, 60)
+        wait = WebDriverWait(driver, 120)
         if findwhat=="id":
-            element = wait.until(EC._element_if_visible((By.ID, value)))
+            lookfor=driver.find_element_by_id(str(value))
+            element = wait.until(EC.visibility_of(lookfor))
         if findwhat=="class":
-            element = wait.until(EC._element_if_visible((By.CLASS_NAME, value)))
+            lookfor = driver.find_element_by_class_name(str(value))
+            element = wait.until(EC.visibility_of(lookfor))
         if findwhat=="css":
-            element = wait.until(EC._element_if_visible((By.CSS_SELECTOR, value)))
+            lookfor = driver.find_element_by_css_selector(By.CSS_SELECTOR, str(value))
+            element = wait.until(EC.visibility_of(lookfor))
 
 
 
     def initbrowser(self):
-        driver=webdriver.WebDriver("./chromedriver")
+
         driver.get("https://www.rami-levy.co.il/")
-        driver.set_window_size(1500, 1500)
-        self.waitforelement("id","shoping_start_but")
-        driver.find_element_by_id("shoping_start_but").click()
+        driver.maximize_window()
+        self.waitforelement("class","shoping_start_but")
+        driver.find_element_by_class_name("shoping_start_but").click()
 
     def getProductByName(self,name):
         products = {}
         self.waitforelement("id","strSearch")
-        driver.find_element_by_class_name("strSearch").send_keys(name)
-        driver.find_element_by_class_name("strSearch").submit()
+        driver.find_element_by_id("strSearch").clear()
+        driver.find_element_by_id("strSearch").send_keys(unicode(name, "utf-8"))
+        driver.find_element_by_id("strSearch").submit()
         webproducts=driver.find_elements_by_class_name("product_item")
-        print(webproducts)
-        # for item in webproducts:
-        # for item in webproducts:
-        #     name = item.find_element_by_class_name("prod_title prodName").get_attribute("innerHTML");
-        #     price = item.find_element_by_class_name("prodPrice").get_attribute("innerHTML");
-        #     products[name] = price
-        # return json.dumps(products)
+        for item in webproducts:
+            name = item.find_element_by_class_name("prod_title prodName").get_attribute("innerHTML");
+            price = item.find_element_by_class_name("prodPrice").get_attribute("innerHTML");
+            products[name] = price
+        return json.dumps(products)

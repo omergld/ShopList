@@ -2,4 +2,4 @@
 from automation import scarpping
 scar=scarpping()
 scarpping.initbrowser(scar)
-scarpping.getProductByName("תפוחי")
+scarpping.getProductByName(scar,"תפוחי")
