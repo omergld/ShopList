@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
-import automation as auto
-auto.automation.initBrowser()
-print(auto.automation.getProductByName(auto,'תפוחי'))
+from automation import scarpping
+scar=scarpping()
+scarpping.initbrowser(scar)
+scarpping.getProductByName("תפוחי")
