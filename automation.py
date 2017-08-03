@@ -37,14 +37,18 @@ class scarpping(object):
         driver.find_element_by_class_name("shoping_start_but").click()
 
     def getProductByName(self,name):
-        products = {}
+        products = []
         self.waitforelement("id","strSearch")
         driver.find_element_by_id("strSearch").clear()
         driver.find_element_by_id("strSearch").send_keys(unicode(name, "utf-8"))
         driver.find_element_by_id("strSearch").submit()
         webproducts=driver.find_elements_by_class_name("product_item")
         for item in webproducts:
-            name = item.find_element_by_class_name("prod_title prodName").get_attribute("innerHTML");
-            price = item.find_element_by_class_name("prodPrice").get_attribute("innerHTML");
-            products[name] = price
-        return json.dumps(products)
+            name = item.find_element_by_class_name("prodName").get_attribute("innerHTML");
+            products.append(unicode(name, "utf-8"))
+        print json.dumps(products)
+        self.closebrowser()
+
+
+    def closebrowser(self):
+        driver.close()
