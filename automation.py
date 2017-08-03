@@ -45,10 +45,8 @@ class scarpping(object):
         webproducts=driver.find_elements_by_class_name("product_item")
         for item in webproducts:
             name = item.find_element_by_class_name("prodName").get_attribute("innerHTML");
-            products.append(unicode(name, "utf-8"))
-        print json.dumps(products)
-        self.closebrowser()
-
+            products.append(str(name.encode("utf-8")))
+        return products
 
     def closebrowser(self):
         driver.close()
