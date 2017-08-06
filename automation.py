@@ -12,6 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 driver = webdriver.WebDriver("./chromedriver")
 
+
 class scarpping(object):
 
 
@@ -35,18 +36,19 @@ class scarpping(object):
         driver.maximize_window()
         self.waitforelement("class","shoping_start_but")
         driver.find_element_by_class_name("shoping_start_but").click()
+        return "Browser is ready"
 
     def getProductByName(self,name):
         products = []
         self.waitforelement("id","strSearch")
         driver.find_element_by_id("strSearch").clear()
-        driver.find_element_by_id("strSearch").send_keys(unicode(name, "utf-8"))
+        driver.find_element_by_id("strSearch").send_keys(name)
         driver.find_element_by_id("strSearch").submit()
         webproducts=driver.find_elements_by_class_name("product_item")
         for item in webproducts:
             name = item.find_element_by_class_name("prodName").get_attribute("innerHTML");
             products.append(str(name.encode("utf-8")))
-        return products
+        return json.dumps(products)
 
     def closebrowser(self):
         driver.close()
